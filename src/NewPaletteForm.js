@@ -17,8 +17,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Button from '@mui/material/Button';
+import { ChromePicker } from "react-color";
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -115,6 +117,15 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </DrawerHeader>
         <Divider />
+        <Typography variant="h4">
+            Design your Palette!
+        </Typography>
+        <div>
+            <Button variant="contained" color="secondary"> Clear Palette </Button>
+            <Button variant="contained" color="primary"> Random Color </Button>
+        </div>
+        <ChromePicker color="purple" onChangeComplete={(newColor)=> console.log(newColor)}/>
+        <Button variant="contained" color="primary">Add Color</Button>
 
       </Drawer>
       <Main open={open}>
