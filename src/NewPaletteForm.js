@@ -1,22 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Button from '@mui/material/Button';
 import { ChromePicker } from "react-color";
 
@@ -70,6 +63,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = React.useState(true);
+  const [currentColor, setCurrentColor] = React.useState("teal");
+  const [colors, setColors] = React.useState(["purple", "#345764"]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -78,6 +74,10 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const addNewColor = () => {
+    setColors([...colors, currentColor])
+    };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -124,13 +124,24 @@ export default function PersistentDrawerLeft() {
             <Button variant="contained" color="secondary"> Clear Palette </Button>
             <Button variant="contained" color="primary"> Random Color </Button>
         </div>
-        <ChromePicker color="purple" onChangeComplete={(newColor)=> console.log(newColor)}/>
-        <Button variant="contained" color="primary">Add Color</Button>
+        <ChromePicker color={currentColor} onChangeComplete={(newColor) => setCurrentColor(newColor.hex)}/>
+        <Button
+            variant="contained"
+            color="secondary"
+            style={{backgroundColor: currentColor}}
+            onClick={addNewColor}
+        >
+        Add Color
+        </Button>
 
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-
+        <ul>
+            {colors.map(color => (
+                <li>{color}</li>
+            ))}
+        </ul>
       </Main>
     </Box>
   );
