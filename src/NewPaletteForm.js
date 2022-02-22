@@ -71,7 +71,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 //     });
 // })
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState(true);
@@ -100,10 +100,17 @@ export default function PersistentDrawerLeft() {
         setNewName(evt.target.value)
     }
 
+    const savePalette = () => {
+        let newName="test";
+        const newPalette={paletteName: "Test", colors: colors, id: newName.toLowerCase().replace(/ /g, "-")};
+        props.savePalette(newPalette);
+        props.history.push("/");
+    };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} color="default">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -117,6 +124,12 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={savePalette}
+          >
+            Save Palette </Button>
         </Toolbar>
       </AppBar>
       <Drawer
