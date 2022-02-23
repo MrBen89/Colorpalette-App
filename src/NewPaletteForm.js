@@ -71,6 +71,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 //     });
 // })
 
+//ValidatorForm.addValidationRule("isPaletteUnique", (value) => {
+//         this.props.palettes.every(
+//             ({paletteName}) => paletteName.toLowerCase() !== value.toLowerCase()
+//         );
+//     });
+
 export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -78,6 +84,7 @@ export default function PersistentDrawerLeft(props) {
   const [currentColor, setCurrentColor] = React.useState("teal");
   const [colors, setColors] = React.useState([]);
   const [newName, setNewName] = React.useState("");
+  const [newPaletteName, setNewPaletteName] = React.useState("");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,9 +107,13 @@ export default function PersistentDrawerLeft(props) {
         setNewName(evt.target.value)
     }
 
+    const handlePaletteNameChange = (evt) => {
+        setNewPaletteName(evt.target.value)
+    }
+
     const savePalette = () => {
-        let newName="test";
-        const newPalette={paletteName: "Test", colors: colors, id: newName.toLowerCase().replace(/ /g, "-")};
+        let newName= newPaletteName;
+        const newPalette={paletteName: newName, colors: colors, id: newName.toLowerCase().replace(/ /g, "-")};
         props.savePalette(newPalette);
         props.history.push("/");
     };
@@ -124,12 +135,23 @@ export default function PersistentDrawerLeft(props) {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
+          <ValidatorForm onSubmit={savePalette}>
+              <TextValidator
+                name="newPaletteName"
+                label="Palette Name"
+                value={newPaletteName}
+                onChange={handlePaletteNameChange}
+                validators={["required"]}
+                errorMessages={["Enter Palette Name"]}
+              />
+
           <Button
             variant="contained"
             color="primary"
-            onClick={savePalette}
+            type="submit"
           >
             Save Palette </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
