@@ -17,6 +17,8 @@ import { ChromePicker } from "react-color";
 import { arrayMoveImmutable } from "array-move";
 
 const drawerWidth = 400;
+const maxColors = 20;
+
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -83,7 +85,7 @@ export default function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const [currentColor, setCurrentColor] = React.useState("teal");
-  const [colors, setColors] = React.useState([]);
+  const [colors, setColors] = React.useState(props.palettes[0].colors);
   const [newName, setNewName] = React.useState("");
   const [newPaletteName, setNewPaletteName] = React.useState("");
 
@@ -126,6 +128,15 @@ export default function PersistentDrawerLeft(props) {
         setColors(
             arrayMoveImmutable(colors, oldIndex, newIndex)
         );
+    };
+    const clearColors = () => {
+        setColors([])
+    };
+    const addRandomColor = () => {
+        const allColors = props.palettes.map(p => p.colors).flat();
+        var rand = Math.floor(Math.random() * allColors.length);
+        const randomColor = allColors[rand];
+        if (colors.length <= 19){setColors([...colors, randomColor])};
     };
 
   return (
@@ -187,8 +198,21 @@ export default function PersistentDrawerLeft(props) {
             Design your Palette!
         </Typography>
         <div>
-            <Button variant="contained" color="secondary"> Clear Palette </Button>
-            <Button variant="contained" color="primary"> Random Color </Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                onClick={clearColors}
+            >
+              Clear Palette
+            </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={addRandomColor}
+                disabled={colors.length >= maxColors}
+            >
+                Random Color
+            </Button>
         </div>
         <ChromePicker color={currentColor} onChangeComplete={(newColor) => setCurrentColor(newColor.hex)}/>
         <ValidatorForm onSubmit={addNewColor}>
@@ -201,10 +225,11 @@ export default function PersistentDrawerLeft(props) {
             <Button
                 variant="contained"
                 color="secondary"
-                style={{backgroundColor: currentColor}}
+                style={{backgroundColor: colors.length >= maxColors ? "grey" : currentColor}}
                 type="submit"
+                disabled={colors.length >= maxColors}
             >
-            Add Color
+            {colors.length >= maxColors ? "Palette Full" : "Add Color"}
             </Button>
         </ValidatorForm>
 
