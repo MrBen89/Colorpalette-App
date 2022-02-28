@@ -11,9 +11,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
-import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker } from "react-color";
+import { arrayMoveImmutable } from "array-move";
 
 const drawerWidth = 400;
 
@@ -121,6 +122,11 @@ export default function PersistentDrawerLeft(props) {
     const removeColor = (colorName) => {
         setColors(colors.filter(color => color.name !== colorName))
     }
+    const onSortEnd = ({oldIndex, newIndex}) => {
+        setColors(
+            arrayMoveImmutable(colors, oldIndex, newIndex)
+        );
+    };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -207,14 +213,12 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-            {colors.map(color => (
-            <DraggableColorBox
-                key={color.name}
-                color={color.color}
-                name={color.name}
-                handleClick={() => removeColor(color.name)}
-            />
-            ))}
+        <DraggableColorList
+            colors={colors}
+            removeColor={removeColor}
+            axis="xy"
+            onSortEnd={onSortEnd}
+        />
          </Main>
     </Box>
   );
