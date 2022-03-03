@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
+import { withStyles } from "@material-ui/core/styles";
 import ColorPickerForm from "./ColorPickerForm"
 import PaletteFormNav from "./PaletteFormNav";
 import Box from '@mui/material/Box';
@@ -47,9 +48,24 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+const styles = {
+    container: {
+        width: "90%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems:"center",
+    },
+    buttons: {
+        width: "100%"
+    },
+    button: {
+        width: "50%"
+    }
+}
 
-
-export default function PersistentDrawerLeft(props) {
+ function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);
   // const [currentColor, setCurrentColor] = React.useState("teal");
   const [colors, setColors] = React.useState(props.palettes[0].colors);
@@ -99,15 +115,22 @@ export default function PersistentDrawerLeft(props) {
     };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', justifyContent: "center",
+    alignItems:"center", }}>
     <PaletteFormNav open={open} palettes={props.palettes} handleDrawerOpen={handleDrawerOpen} savePalette={savePalette}/>
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems:"center",
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            display: "flex",
+            justifyContent: "center",
+            alignItems:"center",
           },
         }}
         variant="persistent"
@@ -120,14 +143,16 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Typography variant="h4">
+        <div className={props.classes.container}>
+        <Typography variant="h4" gutterBottom>
             Design your Palette!
         </Typography>
-        <div>
+        <div className={props.classes.buttons}>
             <Button
                 variant="contained"
                 color="secondary"
                 onClick={clearColors}
+                className={props.classes.button}
             >
               Clear Palette
             </Button>
@@ -136,13 +161,16 @@ export default function PersistentDrawerLeft(props) {
                 color="primary"
                 onClick={addRandomColor}
                 disabled={colors.length >= maxColors}
+                className={props.classes.button}
             >
                 Random Color
             </Button>
         </div>
         <ColorPickerForm maxColors={maxColors} addNewColor={addNewColor} colors={colors}/>
 
+        </div>
       </Drawer>
+
       <Main open={open}>
         <DrawerHeader />
         <DraggableColorList
@@ -155,6 +183,7 @@ export default function PersistentDrawerLeft(props) {
     </Box>
   );
 
-
-
 }
+
+
+export default withStyles(styles)(PersistentDrawerLeft);
