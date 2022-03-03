@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/material/styles';
+import PaletteMetaForm from "./PaletteMetaForm"
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -83,24 +84,9 @@ function PaletteFormNav(props) {
 
               </Toolbar>
               <div className={classes.navBtns}>
-                  <ValidatorForm onSubmit={() => props.savePalette(newPaletteName)}>
-                      <TextValidator
-                        name="newPaletteName"
-                        label="Palette Name"
-                        value={newPaletteName}
-                        onChange={handlePaletteNameChange}
-                        validators={["required"]}
-                        errorMessages={["Enter Palette Name"]}
-                        autoFocus
-                      />
 
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                  >
-                    Save Palette </Button>
-                  </ValidatorForm>
+                  <PaletteMetaForm palettes={props.palettes} savePalette={props.savePalette}/>
+
                   <Link to="/">
                       <Button variant="contained" color="secondary"> Go Back </Button>
                   </Link>
