@@ -108,7 +108,7 @@ function PaletteFormNav(props) {
                   </Button>
               </div>
             </AppBar>
-            {formShowing && <PaletteMetaForm palettes={props.palettes} handleSubmit={props.handleSubmit} hideForm={hideForm}/>}
+            {formShowing && <PaletteMetaForm palettes={props.palettes} savePalette={props.savePalette} hideForm={hideForm}/>}
         </div>
     )
 };

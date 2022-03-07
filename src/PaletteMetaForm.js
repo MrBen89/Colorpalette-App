@@ -11,32 +11,46 @@ import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 
 export default function PaletteMetaForm(props) {
-  const [open, setOpen] = React.useState(true);
+  const [stage, setStage] = React.useState("name");
   const [newPaletteName, setNewPaletteName] = React.useState("");
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setStage("name");
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setStage("");
   };
 
  const handleChange = (evt) => {
        setNewPaletteName(evt.target.value);
   };
 
+  const showEmojiPicker = () => {
+      setStage("emoji");
+  };
+
+  const storePalette = (emoji) => {
+      const newPalette = {name: newPaletteName, emoji: emoji.native}
+      props.savePalette(newPalette)
+  }
+
   return (
-     <Dialog open={open} onClose={props.hideForm}>
+      <div>
+      <Dialog open={stage === "emoji"} onClose={props.hideForm}>
+      <DialogTitle id="form-dialog-title">
+        Pick an emoji for your palette
+      </DialogTitle>
+            <Picker onSelect={storePalette} />
+      </Dialog>
+     <Dialog open={stage === "name"} onClose={props.hideForm}>
         <DialogTitle>Choose a palette name</DialogTitle>
-         <ValidatorForm onSubmit={() => props.savePalette(newPaletteName)}>
+         <ValidatorForm onSubmit={showEmojiPicker}>
         <DialogContent>
           <DialogContentText>
             Please enter a name for your new Palette. Make sure its unique!
           </DialogContentText>
-          <Picker />
-
-                <TextValidator
+            <TextValidator
                   name="newPaletteName"
                   label="Palette Name"
                   fullWidth
@@ -59,6 +73,6 @@ export default function PaletteMetaForm(props) {
         </DialogActions>
         </ValidatorForm>
       </Dialog>
-
+      </div>
   );
 }

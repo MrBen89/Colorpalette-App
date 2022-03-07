@@ -88,9 +88,9 @@ const styles = {
 
 
 
-    const savePalette = (newPaletteName) => {
-        let newName= newPaletteName;
-        const newPalette={paletteName: newName, colors: colors, id: newName.toLowerCase().replace(/ /g, "-")};
+    const savePalette = (palette) => {
+        let newName= palette.name;
+        const newPalette={paletteName: newName, colors: colors, id: newName.toLowerCase().replace(/ /g, "-"), emoji: palette.emoji};
         props.savePalette(newPalette);
         props.history.push("/");
     };
