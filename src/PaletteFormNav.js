@@ -17,7 +17,15 @@ const styles = {
         display: "flex",
         color: "purple"
     },
-    navBtns: {},
+    navBtns: {
+        marginRight: "1rem",
+        "& a": {
+            textDecoration: "none"
+        }
+    },
+    button: {
+        margin: "0 0.5rem"
+    },
     AppBar: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -31,6 +39,7 @@ function PaletteFormNav(props) {
     const { classes } = props;
 
     const [newPaletteName, setNewPaletteName] = React.useState("");
+    const [formShowing, setFormShowing] = React.useState(false);
 
     const { open } = props;
     const AppBar = styled(MuiAppBar, {
@@ -55,7 +64,9 @@ function PaletteFormNav(props) {
         setNewPaletteName(evt.target.value)
     }
 
-
+    const showForm = () => {
+        setFormShowing(true)
+    }
 
     return(
         <div>
@@ -66,6 +77,7 @@ function PaletteFormNav(props) {
                 color="default"
                 sx={{flexDirection: "row",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     height: "64px"}}
             >
               <Toolbar>
@@ -84,14 +96,15 @@ function PaletteFormNav(props) {
 
               </Toolbar>
               <div className={classes.navBtns}>
-
-                  <PaletteMetaForm palettes={props.palettes} savePalette={props.savePalette}/>
-
-                  <Link to="/">
-                      <Button variant="contained" color="secondary"> Go Back </Button>
+                  <Link to="/" sx={{textDecoration: 'none'}}>
+                      <Button variant="contained" sx={{margin: "0 0.5rem"}} color="secondary"> Go Back </Button>
                   </Link>
+                  <Button variant="contained" sx={{margin: "0 0.5rem", textDecoration: "none"}} onClick={showForm}>
+                    Save Palette
+                  </Button>
               </div>
             </AppBar>
+            {formShowing && <PaletteMetaForm palettes={props.palettes} handleSubmit={props.handleSubmit} />}
         </div>
     )
 };
