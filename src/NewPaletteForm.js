@@ -12,6 +12,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import DraggableColorList from "./DraggableColorList";
 import { arrayMoveImmutable } from "array-move";
+import styles from "./styles/NewPaletteFormStyles.js";
 
 const drawerWidth = 400;
 const maxColors = 20;
@@ -48,22 +49,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const styles = {
-    container: {
-        width: "90%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems:"center",
-    },
-    buttons: {
-        width: "100%"
-    },
-    button: {
-        width: "50%"
-    }
-}
+
 
  function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);

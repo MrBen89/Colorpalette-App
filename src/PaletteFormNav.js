@@ -10,28 +10,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import styles from "./styles/PaletteFormNavStyles";
 
-const styles = {
-    root: {
-        display: "flex",
-        color: "purple"
-    },
-    navBtns: {
-        marginRight: "1rem",
-        "& a": {
-            textDecoration: "none"
-        }
-    },
-    button: {
-        margin: "0 0.5rem"
-    },
-    AppBar: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        height: "64px"
-    }
-}
+
 
 function PaletteFormNav(props) {
 
