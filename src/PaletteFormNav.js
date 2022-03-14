@@ -8,9 +8,9 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import styles from "./styles/PaletteFormNavStyles";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 
 
@@ -73,7 +73,7 @@ function PaletteFormNav(props) {
                   edge="start"
                   sx={{ mr: 2, ...(open && { display: 'none' }) }}
                 >
-                  <MenuIcon />
+                  <ChevronRightIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap component="div">
                   Create a Palette
