@@ -113,7 +113,10 @@ export default {
             textAlign: "center",
             marginBottom: "0",
             padding: "1rem",
-            textTransform: "uppercase"
+            textTransform: "uppercase",
+            [sizes.down("sm")]: {
+                fontSize: "5rem"
+            }
         },
         "& p": {
             fontSize: "2rem",
