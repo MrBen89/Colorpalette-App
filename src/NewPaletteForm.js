@@ -164,6 +164,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
             removeColor={removeColor}
             axis="xy"
             onSortEnd={onSortEnd}
+            distance= {20}
         />
          </Main>
     </Box>
