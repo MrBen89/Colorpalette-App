@@ -19,7 +19,7 @@ function MiniPalette(props){
             <DeleteIcon
                 className={classes.deleteIcon}
                 sx={{transition: "all 0.3s ease-in-out"}}
-                onClick={(e) => {e.stopPropagation(); props.deletePalette(props.id)}}
+                onClick={(e) => {e.stopPropagation(); props.openDialog(props.id)}}
             />
             <div className={classes.colors}>{miniColorBoxes}</div>
             <h5 className={classes.title}>
