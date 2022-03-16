@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import DraggableColorList from "./DraggableColorList";
 import { arrayMoveImmutable } from "array-move";
 import styles from "./styles/NewPaletteFormStyles.js";
+import seedColors from "./seedColors";
 
 const drawerWidth = 400;
 const maxColors = 20;
@@ -54,7 +55,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
  function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);
   // const [currentColor, setCurrentColor] = React.useState("teal");
-  const [colors, setColors] = React.useState(props.palettes[0].colors);
+  const [colors, setColors] = React.useState(seedColors[0].colors);
   // const [newName, setNewName] = React.useState("");
 
 
