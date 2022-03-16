@@ -33,6 +33,7 @@ export default function PaletteMetaForm(props) {
   const storePalette = (emoji) => {
       const newPalette = {name: newPaletteName, emoji: emoji.native}
       props.savePalette(newPalette)
+      setStage("")
   }
 
   return (
