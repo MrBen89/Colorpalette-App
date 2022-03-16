@@ -31,7 +31,7 @@ export default {
         "& .rc-slider-track":{
             background: "transparent"
         },
-        [sizes.down("md")]: {
+        [sizes.down("sm")]: {
             width: "150px"
         },
         "& .rc-slider-rail": {
